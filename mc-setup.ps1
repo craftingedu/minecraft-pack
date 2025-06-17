@@ -20,18 +20,16 @@ if (!(Test-Path $prismExe)) {
 $profileZipUrl = "$repoBase\crafting.zip"
 $profileZipPath = "$updaterDir\crafting.zip"
 $instancesDir = "$prismDataDir\instances"
-if (!(Test-Path $instancesDir)) {
-    New-Item -ItemType Directory -Path $instancesDir | Out-Null
+$craftingInstanceDir = "$instancesDir\crafting"
+if (!(Test-Path $craftingInstanceDir)) {
+    New-Item -ItemType Directory -Path $craftingInstanceDir | Out-Null
 }
 Invoke-WebRequest -Uri $profileZipUrl -OutFile $profileZipPath
-Expand-Archive -Path $profileZipPath -DestinationPath $instancesDir -Force
+Expand-Archive -Path $profileZipPath -DestinationPath $craftingInstanceDir -Force
 
 # Set up Prism Launcher accounts
-$accountsDir = "$env:APPDATA\PrismLauncher\accounts"
-if (!(Test-Path $accountsDir)) {
-    New-Item -ItemType Directory -Path $accountsDir | Out-Null
-}
-Invoke-WebRequest -Uri $accountsFileUrl -OutFile "$accountsDir\accounts.json"
+$accountsJsonPath = "$env:APPDATA\PrismLauncher\accounts.json"
+Invoke-WebRequest -Uri $accountsFileUrl -OutFile $accountsJsonPath
 
 # Install Ferium
 if (!(Test-Path "$env:USERPROFILE\.cargo\bin\ferium.exe")) {
