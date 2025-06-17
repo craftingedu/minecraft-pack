@@ -3,7 +3,7 @@ $repoBase = "https://raw.githubusercontent.com/youruser/minecraft-pack/main"
 $updaterDir = "$env:USERPROFILE\minecraft-updater"
 $prismDataDir = "$env:APPDATA\.prismlauncher"
 $accountsFileUrl = "$repoBase\accounts.json"
-$feriumTomlUrl = "$repoBase\ferium.toml"
+$feriumJsonUrl = "$repoBase\config.json"
 $modsTomlUrl = "$repoBase\mods.toml"
 $updateBatUrl = "$repoBase\update.bat"
 
@@ -13,11 +13,21 @@ if (!(Test-Path $updaterDir)) {
 }
 
 # === Step 2: Install Ferium ===
-$feriumPath = "$env:USERPROFILE\.cargo\bin\ferium.exe"
-if (!(Test-Path $feriumPath)) {
+if (!(Test-Path "$env:USERPROFILE\.cargo\bin\ferium.exe")) {
     Write-Host "Installing Ferium using winget..."
     winget install --id GorillaDevs.Ferium -e --accept-source-agreements --accept-package-agreements
 }
+
+# === Step 2.5: Place Ferium config ===
+# Determine Ferium config directory (cross-platform, but here for Windows)
+$feriumConfigDir = Join-Path $env:USERPROFILE ".config\ferium"
+if (!(Test-Path $feriumConfigDir)) {
+    New-Item -ItemType Directory -Path $feriumConfigDir | Out-Null
+}
+Invoke-WebRequest -Uri $feriumJsonUrl -OutFile "$feriumConfigDir\config.json"
+
+# === Step 2.6: Run ferium profile configure ===
+ferium profile configure
 
 # === Step 3: Install Prism Launcher if missing ===
 $prismExe = "$env:LOCALAPPDATA\Programs\PrismLauncher\prismlauncher.exe"
@@ -27,7 +37,7 @@ if (!(Test-Path $prismExe)) {
 }
 
 # === Step 4: Download required files ===
-Invoke-WebRequest -Uri $feriumTomlUrl -OutFile "$updaterDir\ferium.toml"
+Invoke-WebRequest -Uri $feriumJsonUrl -OutFile "$updaterDir\config.json"
 Invoke-WebRequest -Uri $modsTomlUrl -OutFile "$updaterDir\mods.toml"
 Invoke-WebRequest -Uri $updateBatUrl -OutFile "$updaterDir\update.bat"
 

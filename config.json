@@ -1,0 +1,36 @@
+{
+  "profiles": [
+    {
+      "name": "crafting",
+      "output_dir": "\\\\?\\C:\\Users\\CEA\\AppData\\Roaming\\PrismLauncher\\instances\\crafting\\minecraft\\mods",
+      "game_version": "1.21.5",
+      "mod_loader": "Fabric",
+      "mods": [
+        {
+          "name": "Controlify (Controller support)",
+          "identifier": {
+            "ModrinthProject": "DOUdJVEm"
+          }
+        },
+        {
+          "name": "Fabric API",
+          "identifier": {
+            "ModrinthProject": "P7dR8mSH"
+          }
+        },
+        {
+          "name": "Lithium",
+          "identifier": {
+            "ModrinthProject": "gvQqBUqZ"
+          }
+        },
+        {
+          "name": "Sodium",
+          "identifier": {
+            "ModrinthProject": "AANobbMI"
+          }
+        }
+      ]
+    }
+  ]
+}
