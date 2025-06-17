@@ -3,12 +3,9 @@ setlocal enabledelayedexpansion
 
 REM === Paths ===
 set "CONFIG_DIR=%USERPROFILE%\minecraft-updater"
-set "MODS_DIR=%APPDATA%\.prismlauncher\instances\crafting\minecraft\mods"
-set "FERIUM_BIN=%USERPROFILE%\.cargo\bin\ferium.exe"
 
 REM === Create folders if needed ===
 if not exist "%CONFIG_DIR%" mkdir "%CONFIG_DIR%"
-if not exist "%MODS_DIR%" mkdir "%MODS_DIR%"
 
 cd /d "%CONFIG_DIR%"
 
@@ -17,9 +14,18 @@ curl -L -o config.json https://raw.githubusercontent.com/craftingedu/minecraft-p
 
 REM === Copy config to Ferium config directory ===
 set "FERIUM_CONFIG_DIR=%USERPROFILE%\.config\ferium"
-if not exist "%FERIUM_CONFIG_DIR%" mkdir "%FERIUM_CONFIG_DIR%"
 copy /Y config.json "%FERIUM_CONFIG_DIR%\config.json"
 
+REM === Set Ferium output dir variable ===
+set "OUTPUT_DIR=%APPDATA%\PrismLauncher\instances\crafting\minecraft\mods"
+
+REM === Configure Ferium profile output dir ===
+ferium profile configure --output-dir "%OUTPUT_DIR%"
+
+REM === Download usernameMod.jar into user folder in output dir ===
+set "USER_MOD_DIR=%OUTPUT_DIR%\user"
+if not exist "%USER_MOD_DIR%" mkdir "%USER_MOD_DIR%"
+curl -L -o "%USER_MOD_DIR%\usernameMod.jar" https://github.com/craftingedu/usernameMod/releases/latest/download/usernameMod.jar
+
 REM === Install/update mods using Ferium ===
-"%FERIUM_BIN%" profile use crafting
-"%FERIUM_BIN%" install --output-dir "%MODS_DIR%"
+ferium upgrade
