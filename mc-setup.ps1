@@ -16,16 +16,14 @@ if (!(Test-Path $prismExe)) {
     winget install --exact PrismLauncher.PrismLauncher --accept-source-agreements --accept-package-agreements
 }
 
-# Download and import Prism Launcher profile
+# Download Prism Launcher profile zip
 $profileZipUrl = "$repoBase\crafting.zip"
 $profileZipPath = "$updaterDir\crafting.zip"
-$instancesDir = "$prismDataDir\instances"
-$craftingInstanceDir = "$instancesDir\crafting"
-if (!(Test-Path $craftingInstanceDir)) {
-    New-Item -ItemType Directory -Path $craftingInstanceDir | Out-Null
-}
 Invoke-WebRequest -Uri $profileZipUrl -OutFile $profileZipPath
-Expand-Archive -Path $profileZipPath -DestinationPath $craftingInstanceDir -Force
+
+# Import Prism Launcher instance using prismlauncher -I
+$prismInstallDir = "$env:LOCALAPPDATA\Programs\PrismLauncher"
+Start-Process -FilePath "$prismInstallDir\prismlauncher.exe" -ArgumentList "-I $profileZipPath" -WorkingDirectory $prismInstallDir -Wait
 
 # Set up Prism Launcher accounts
 $accountsJsonPath = "$env:APPDATA\PrismLauncher\accounts.json"
