@@ -54,8 +54,6 @@ Write-Host "Extracting archive from $profileZipPath to $craftingDest" -Foregroun
 try {
     Expand-Archive -Path $profileZipPath -DestinationPath $craftingDest -Force -Verbose
     Write-Host "Archive extracted successfully." -ForegroundColor Green
-    Write-Host "Files in destination directory:" -ForegroundColor Cyan
-    Get-ChildItem -Path $craftingDest -Recurse -Depth 1 | ForEach-Object { Write-Host "  $($_.FullName)" -ForegroundColor Gray }
 }
 catch {
     Write-Host "Error extracting archive: $($_.Exception.Message)" -ForegroundColor Red
