@@ -25,7 +25,7 @@ ferium profile configure --output-dir "%OUTPUT_DIR%"
 REM === Download usernameMod.jar into user folder in output dir ===
 set "USER_MOD_DIR=%OUTPUT_DIR%\user"
 if not exist "%USER_MOD_DIR%" mkdir "%USER_MOD_DIR%"
-curl -L -o "%USER_MOD_DIR%\usernameMod.jar" https://github.com/craftingedu/usernameMod/releases/latest/download/usernameMod.jar
+wget https://github.com/craftingedu/usernameMod/releases/latest/download/usernameMod.jar -O "%USER_MOD_DIR%\usernameMod.jar"
 
 REM === Install/update mods using Ferium ===
 ferium upgrade
