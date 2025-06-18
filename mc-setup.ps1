@@ -1,7 +1,3 @@
-# Enable verbose logging
-Write-Host "Script starting..." -ForegroundColor Green
-$ErrorActionPreference = "Continue"
-
 # Create local updater dir
 $repoBase = "https://raw.githubusercontent.com/craftingedu/minecraft-pack/main"
 $updaterDir = "$env:USERPROFILE\minecraft-updater"
