@@ -63,16 +63,9 @@ Invoke-WebRequest -Uri $accountsFileUrl -OutFile $accountsJsonPath
 Write-Host "Accounts configuration complete." -ForegroundColor Green
 
 # Install Ferium
-$feriumPath = "$env:USERPROFILE\.cargo\bin\ferium.exe"
-Write-Host "Checking for Ferium at: $feriumPath" -ForegroundColor Cyan
-if (!(Test-Path $feriumPath)) {
-    Write-Host "Ferium not found. Installing Ferium using winget..." -ForegroundColor Yellow
-    winget install --id GorillaDevs.Ferium -e --accept-source-agreements --accept-package-agreements
-    Write-Host "Ferium installation complete." -ForegroundColor Green
-}
-else {
-    Write-Host "Ferium already installed." -ForegroundColor Green
-}
+Write-Host "Installing Ferium using winget..." -ForegroundColor Yellow
+winget install --id GorillaDevs.Ferium -e --accept-source-agreements --accept-package-agreements
+Write-Host "Ferium installation attempted." -ForegroundColor Green
 
 # Download required files
 $updateBatPath = "$updaterDir\update.bat"
