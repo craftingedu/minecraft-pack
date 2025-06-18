@@ -20,13 +20,17 @@ $profileZipUrl = "$repoBase\crafting.zip"
 $profileZipPath = "$updaterDir\crafting.zip"
 Invoke-WebRequest -Uri $profileZipUrl -OutFile $profileZipPath
 
-# Extract crafting.zip to Prism Launcher instances/crafting, replacing files if needed
+# Extract crafting.zip to Prism Launcher instances/crafting, overwriting files if needed
 $craftingDest = Join-Path $env:APPDATA "PrismLauncher\instances\crafting"
-if (!(Test-Path $craftingDest)) {
-    New-Item -ItemType Directory -Path $craftingDest | Out-Null
+$tempExtract = Join-Path $updaterDir "crafting-temp"
+if (Test-Path $tempExtract) {
+    Remove-Item -Path $tempExtract -Recurse -Force
 }
+New-Item -ItemType Directory -Path $tempExtract | Out-Null
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-[System.IO.Compression.ZipFile]::ExtractToDirectory($profileZipPath, $craftingDest, $true)
+[System.IO.Compression.ZipFile]::ExtractToDirectory($profileZipPath, $tempExtract)
+Copy-Item -Path (Join-Path $tempExtract '*') -Destination $craftingDest -Recurse -Force
+Remove-Item -Path $tempExtract -Recurse -Force
 
 # Set up Prism Launcher accounts
 $accountsJsonPath = "$env:APPDATA\PrismLauncher\accounts.json"
