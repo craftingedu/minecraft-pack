@@ -1,7 +1,6 @@
 # Create local updater dir
 $repoBase = "https://raw.githubusercontent.com/craftingedu/minecraft-pack/main"
 $updaterDir = "$env:USERPROFILE\minecraft-updater"
-$prismDataDir = "$env:APPDATA\.prismlauncher"
 $accountsFileUrl = "$repoBase\accounts.json"
 $updateBatUrl = "$repoBase\update.bat"
 
@@ -21,9 +20,13 @@ $profileZipUrl = "$repoBase\crafting.zip"
 $profileZipPath = "$updaterDir\crafting.zip"
 Invoke-WebRequest -Uri $profileZipUrl -OutFile $profileZipPath
 
-# Import Prism Launcher instance using prismlauncher -I
-$prismInstallDir = "$env:LOCALAPPDATA\Programs\PrismLauncher"
-Start-Process -FilePath "$prismInstallDir\prismlauncher.exe" -ArgumentList "-I $profileZipPath" -WorkingDirectory $prismInstallDir -Wait
+# Extract crafting.zip to Prism Launcher instances/crafting, replacing files if needed
+$craftingDest = Join-Path $env:APPDATA "PrismLauncher\instances\crafting"
+if (!(Test-Path $craftingDest)) {
+    New-Item -ItemType Directory -Path $craftingDest | Out-Null
+}
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+[System.IO.Compression.ZipFile]::ExtractToDirectory($profileZipPath, $craftingDest, $true)
 
 # Set up Prism Launcher accounts
 $accountsJsonPath = "$env:APPDATA\PrismLauncher\accounts.json"
