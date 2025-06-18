@@ -65,7 +65,6 @@ Write-Host "Accounts configuration complete." -ForegroundColor Green
 # Install Ferium
 Write-Host "Installing Ferium using winget..." -ForegroundColor Yellow
 winget install --id GorillaDevs.Ferium -e --accept-source-agreements --accept-package-agreements
-Write-Host "Ferium installation attempted." -ForegroundColor Green
 
 # Download required files
 $updateBatPath = "$updaterDir\update.bat"
