@@ -38,20 +38,17 @@ if errorlevel 1 (
     pause
 )
 
-REM === Download usernameMod.jar into user folder in output dir ===
-set "USER_MOD_DIR=%OUTPUT_DIR%\user"
-if not exist "%USER_MOD_DIR%" mkdir "%USER_MOD_DIR%"
-echo Downloading usernameMod.jar to %USER_MOD_DIR%\usernameMod.jar ...
-curl -sL -o "%USER_MOD_DIR%\usernameMod.jar" https://github.com/craftingedu/usernameMod/releases/latest/download/usernameMod.jar
-if errorlevel 1 (
-    echo ERROR: Failed to download usernameMod.jar
-    pause
-)
-
 REM === Install/update mods using Ferium ===
 ferium upgrade
 if errorlevel 1 (
     echo ERROR: Ferium upgrade failed
+    pause
+)
+
+echo Downloading usernameMod.jar directly to output folder...
+curl -sL -o "%OUTPUT_DIR%\usernameMod.jar" https://github.com/craftingedu/usernameMod/releases/latest/download/usernameMod.jar
+if errorlevel 1 (
+    echo ERROR: Failed to download usernameMod.jar
     pause
 )
 
