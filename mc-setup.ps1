@@ -52,7 +52,7 @@ Write-Host "Directory created." -ForegroundColor Green
 # Use Expand-Archive instead of ZipFile::ExtractToDirectory
 Write-Host "Extracting archive from $profileZipPath to $craftingDest" -ForegroundColor Yellow
 try {
-    Expand-Archive -Path $profileZipPath -DestinationPath $craftingDest -Force -Verbose
+    Expand-Archive -Path $profileZipPath -DestinationPath $craftingDest -Force
     Write-Host "Archive extracted successfully." -ForegroundColor Green
 }
 catch {
