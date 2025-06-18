@@ -2,10 +2,16 @@
   "profiles": [
     {
       "name": "crafting",
-      "output_dir": "C:\\Users\\Slayde\\AppData\\Roaming\\PrismLauncher\\instances\\crafting\\minecraft\\mods",
+      "output_dir": "C:\\Users\\CEA\\AppData\\Roaming\\PrismLauncher\\instances\\crafting\\minecraft\\mods",
       "game_version": "1.21.5",
       "mod_loader": "Fabric",
       "mods": [
+        {
+          "name": "Concurrent Chunk Management Engine (Fabric)",
+          "identifier": {
+            "ModrinthProject": "VSNURh3q"
+          }
+        },
         {
           "name": "Controlify (Controller support)",
           "identifier": {
@@ -22,6 +28,12 @@
           "name": "Lithium",
           "identifier": {
             "ModrinthProject": "gvQqBUqZ"
+          }
+        },
+        {
+          "name": "ScalableLux",
+          "identifier": {
+            "ModrinthProject": "Ps1zyz6x"
           }
         },
         {
