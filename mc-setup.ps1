@@ -78,17 +78,17 @@ $taskName = "Minecraft Mod Auto-Updater"
 Write-Host "Setting up scheduled task: $taskName" -ForegroundColor Cyan
 $taskExists = Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
 if (!$taskExists) {
-    Write-Host "Task does not exist, creating new task..." -ForegroundColor Yellow
-    $action = New-ScheduledTaskAction -Execute "cmd.exe" -Argument "/c $updaterDir\update.bat"
-    $trigger = New-ScheduledTaskTrigger -AtLogOn
-    Register-ScheduledTask -Action $action -Trigger $trigger -TaskName $taskName -RunLevel Highest -Force
-    Write-Host "Scheduled task created with admin privileges." -ForegroundColor Green
+    Write-Host "Task does not exist, creating new task with admin prompt..." -ForegroundColor Yellow
+    $action = "New-ScheduledTaskAction -Execute 'cmd.exe' -Argument '/c $updaterDir\update.bat'"
+    $trigger = "New-ScheduledTaskTrigger -AtLogOn"
+    $register = "Register-ScheduledTask -Action ($action) -Trigger ($trigger) -TaskName '$taskName' -RunLevel Highest -Force"
+    Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command `$action = New-ScheduledTaskAction -Execute 'cmd.exe' -Argument '/c $updaterDir\update.bat'; `$trigger = New-ScheduledTaskTrigger -AtLogOn; Register-ScheduledTask -Action `$action -Trigger `$trigger -TaskName '$taskName' -RunLevel Highest -Force" -Verb RunAs
+    Write-Host "Scheduled task creation attempted with elevation." -ForegroundColor Green
 }
 else {
     Write-Host "Task already exists." -ForegroundColor Green
 }
 
-# Run updater immediately
-Write-Host "Running update script immediately..." -ForegroundColor Cyan
-Start-Process "cmd.exe" "/c $updaterDir\update.bat"
+Write-Host "Running update script" -ForegroundColor Cyan
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c $updaterDir\update.bat" -Verb Open
 Write-Host "Setup complete!" -ForegroundColor Green

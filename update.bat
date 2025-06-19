@@ -21,7 +21,10 @@ if errorlevel 1 (
 )
 
 echo Copying config.json to Ferium config directory...
-set "FERIUM_CONFIG_DIR=%USERPROFILE%\.config\ferium"
+set "FERIUM_BASE_CONFIG=%USERPROFILE%\.config"
+set "FERIUM_CONFIG_DIR=%FERIUM_BASE_CONFIG%\ferium"
+if not exist "%FERIUM_BASE_CONFIG%" mkdir "%FERIUM_BASE_CONFIG%"
+if not exist "%FERIUM_CONFIG_DIR%" mkdir "%FERIUM_CONFIG_DIR%"
 copy /Y config.json "%FERIUM_CONFIG_DIR%\config.json"
 if errorlevel 1 (
     echo ERROR: Failed to copy config.json
