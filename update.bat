@@ -5,7 +5,7 @@ echo === Starting Minecraft Pack Updater ===
 
 REM === Ensure Ferium is installed ===
 echo Installing Ferium using winget
-winget install --id GorillaDevs.Ferium -e --accept-source-agreements --accept-package-agreements
+winget install GorillaDevs.Ferium
 if errorlevel 1 (
     echo ERROR: Ferium installation failed
     pause
@@ -64,6 +64,3 @@ if errorlevel 1 (
 )
 
 echo === Minecraft Pack Updater Complete ===
-
-echo Launching Prism Launcher...
-start "" "%LOCALAPPDATA%\Programs\PrismLauncher\prismlauncher.exe"

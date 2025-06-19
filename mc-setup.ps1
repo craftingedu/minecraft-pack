@@ -84,7 +84,6 @@ if (!$taskExists) {
 else {
     Write-Host "Task already exists." -ForegroundColor Green
 }
-
 Write-Host "Running update script" -ForegroundColor Cyan
-Start-Process -FilePath "cmd.exe" -ArgumentList "/c $updaterDir\update.bat" -Verb Open
+& "$updateBatPath"
 Write-Host "Setup complete!" -ForegroundColor Green
