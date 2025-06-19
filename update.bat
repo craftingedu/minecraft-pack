@@ -3,6 +3,14 @@ setlocal enabledelayedexpansion
 
 echo === Starting Minecraft Pack Updater ===
 
+REM === Ensure Ferium is installed ===
+echo Installing Ferium using winget
+winget install --id GorillaDevs.Ferium -e --accept-source-agreements --accept-package-agreements
+if errorlevel 1 (
+    echo ERROR: Ferium installation failed
+    pause
+)
+
 REM === Paths ===
 echo Setting config directory: %USERPROFILE%\minecraft-updater
 set "CONFIG_DIR=%USERPROFILE%\minecraft-updater"

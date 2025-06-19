@@ -62,10 +62,6 @@ Write-Host "Setting up Prism Launcher accounts at: $accountsJsonPath" -Foregroun
 Invoke-WebRequest -Uri $accountsFileUrl -OutFile $accountsJsonPath
 Write-Host "Accounts configuration complete." -ForegroundColor Green
 
-# Install Ferium
-Write-Host "Installing Ferium using winget..." -ForegroundColor Yellow
-winget install --id GorillaDevs.Ferium -e --accept-source-agreements --accept-package-agreements
-
 # Download required files
 $updateBatPath = "$updaterDir\update.bat"
 Write-Host "Downloading update script from: $updateBatUrl" -ForegroundColor Cyan
