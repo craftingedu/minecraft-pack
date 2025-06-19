@@ -64,3 +64,6 @@ if errorlevel 1 (
 )
 
 echo === Minecraft Pack Updater Complete ===
+
+echo Launching Prism Launcher...
+start "" "%LOCALAPPDATA%\Programs\PrismLauncher\prismlauncher.exe"
