@@ -87,8 +87,4 @@ else {
 Write-Host "Running update script" -ForegroundColor Cyan
 & "$updateBatPath"
 
-Start-Sleep -Seconds 2
-
-Start-Process "$env:LOCALAPPDATA\Programs\PrismLauncher\prismlauncher.exe"
-
 Write-Host "Setup complete!" -ForegroundColor Green

@@ -11,6 +11,10 @@ if errorlevel 1 (
     pause
 )
 
+REM === Find Ferium executable ===
+set "FERIUM_EXE=ferium"
+if exist "%LOCALAPPDATA%\Microsoft\WinGet\Packages\GorillaDevs.Ferium_Microsoft.Winget.Source_8wekyb3d8bbwe\ferium.exe" set "FERIUM_EXE=%LOCALAPPDATA%\Microsoft\WinGet\Packages\GorillaDevs.Ferium_Microsoft.Winget.Source_8wekyb3d8bbwe\ferium.exe"
+
 REM === Paths ===
 echo Setting config directory: %USERPROFILE%\minecraft-updater
 set "CONFIG_DIR=%USERPROFILE%\minecraft-updater"
@@ -43,14 +47,14 @@ echo Setting Ferium output dir variable...
 set "OUTPUT_DIR=%APPDATA%\PrismLauncher\instances\crafting\minecraft\mods"
 
 echo Configuring Ferium profile output dir...
-ferium profile configure --output-dir "%OUTPUT_DIR%"
+"%FERIUM_EXE%" profile configure --output-dir "%OUTPUT_DIR%"
 if errorlevel 1 (
     echo ERROR: Ferium profile configure failed
     pause
 )
 
 REM === Install/update mods using Ferium ===
-ferium upgrade
+"%FERIUM_EXE%" upgrade
 if errorlevel 1 (
     echo ERROR: Ferium upgrade failed
     pause
