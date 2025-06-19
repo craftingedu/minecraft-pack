@@ -87,14 +87,8 @@ else {
 Write-Host "Running update script" -ForegroundColor Cyan
 & "$updateBatPath"
 
-# Launch Prism Launcher after update
-$prismExe = "$env:LOCALAPPDATA\Programs\PrismLauncher\prismlauncher.exe"
-if (Test-Path $prismExe) {
-    Write-Host "Launching Prism Launcher..." -ForegroundColor Cyan
-    Start-Process -FilePath $prismExe
-}
-else {
-    Write-Host "Prism Launcher executable not found at $prismExe" -ForegroundColor Red
-}
+Start-Sleep -Seconds 2
+
+Start-Process "$env:LOCALAPPDATA\Programs\PrismLauncher\prismlauncher.exe"
 
 Write-Host "Setup complete!" -ForegroundColor Green
